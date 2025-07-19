@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Events - FOSSA{% endblock %}
+{% block content %}
+    <!-- Hero Section -->
+    <section id="events-hero" class="hero" style="background-image: url('https://via.placeholder.com/1920x1080?text=FOSSA+Events+Background');">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">FOSSA Events</h1>
+            <p class="hero-subtitle">Explore Our Upcoming Activities</p>
+            <div class="search-bar">
+                <input type="text" id="event-search" placeholder="Search events..." aria-label="Search events">
+                <button class="search-button" onclick="filterEvents()">Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="all-events" class="section">
+        <div class="container">
+            <h2 class="section-title">All Events</h2>
+            <div id="event-grid" class="event-grid">
+                {% for event in events %}
+                    <div class="event-card" data-title="{{ event.title|lower }}">
+                        <div class="event-image">
+                            <img src="{{ event.image.url|default:'https://via.placeholder.com/300x200' }}" alt="{{ event.title }}">
+                        </div>
+                        <div class="event-content">
+                            <h3 class="event-title">{{ event.title }}</h3>
+                            <p class="event-date">Date: {{ event.date|date:"F d, Y" }}</p>
+                            <p class="event-description">{{ event.description|truncatechars:100 }}</p>
+                            {% if event.link %}
+                                <a href="{{ event.link }}" class="event-link">Register</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="no-data">No events available at the moment.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block extra_scripts %}
+    <script>
+        function filterEvents() {
+            const input = document.getElementById('event-search').value.toLowerCase();
+            const cards = document.getElementsByClassName('event-card');
+            for (let i = 0; i < cards.length; i++) {
+                const title = cards[i].getAttribute('data-title');
+                if (title.includes(input)) {
+                    cards[i].style.display = '';
+                } else {
+                    cards[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
+{% endblock %}

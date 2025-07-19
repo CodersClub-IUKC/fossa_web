@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Gallery - FOSSA IUIU-KC{% endblock %}
+{% block content %}
+    <section id="gallery" class="section">
+        <h2>Gallery</h2>
+        <div class="gallery-grid">
+            {% for gallery in galleries %}
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="{{ gallery.image.url|default:'https://via.placeholder.com/300x200' }}" alt="{{ gallery.title }}">
+                    </div>
+                    {% if gallery.caption %}
+                        <p class="gallery-caption">{{ gallery.caption }}</p>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p>No images in the gallery yet.</p>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

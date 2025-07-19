@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="cabinet" class="section-cabinet">
+    <h2 class="section-title">Our Leadership Team</h2>
+    <div class="cabinet-grid">
+        {% for member in cabinets %}
+            <div class="cabinet-card">
+                <div class="cabinet-image-wrapper">
+                    {% if member.image %}
+                        <img src="{{ member.image.url }}" alt="{{ member.name }}" class="cabinet-image">
+                    {% else %}
+                        <div class="no-image">No Photo</div>
+                    {% endif %}
+                </div>
+                <div class="cabinet-info">
+                    <h3 class="cabinet-role">{{ member.role }}</h3>
+                    <div class="cabinet-role-bar"></div>
+                    <p class="cabinet-name">{{ member.name }}</p>
+                    <p class="cabinet-bio">{{ member.bio|default:"No biography available." }}</p>
+                    <p class="cabinet-contact">
+                        <strong>Email:</strong> {{ member.email|default:"Not provided" }}<br>
+                        <strong>Phone:</strong> {{ member.phone|default:"Not provided" }}
+                    </p>
+
+                    {% if member.facebook or member.twitter or member.linkedin %}
+                        <div class="cabinet-socials">
+                            {% if member.facebook %}
+                                <a href="{{ member.facebook }}" target="_blank" class="social-icon">🔵</a>
+                            {% endif %}
+                            {% if member.twitter %}
+                                <a href="{{ member.twitter }}" target="_blank" class="social-icon">🐦</a>
+                            {% endif %}
+                            {% if member.linkedin %}
+                                <a href="{{ member.linkedin }}" target="_blank" class="social-icon">💼</a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <p>No cabinet members available.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
