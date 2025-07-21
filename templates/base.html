@@ -24,10 +24,34 @@
         {% block content %}
         {% endblock %}
     </main>
-    <footer>
-        <p>© 2025 FOSSA. All rights reserved.</p>
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-copyright">© 2025 FOSSA. All rights reserved.</p>
+            <div class="footer-socials">
+                {% if socials.facebook %}
+                    <a href="{{ socials.facebook }}" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                {% endif %}
+                {% if socials.twitter %}
+                    <a href="{{ socials.twitter }}" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
+                {% endif %}
+                {% if socials.linkedin %}
+                    <a href="{{ socials.linkedin }}" target="_blank" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                {% endif %}
+                <!-- Add more platforms as needed (e.g., instagram) -->
+            </div>
+        </div>
     </footer>
     <script src="/static/js/script.js"></script>
     <script src="{% static 'js/script.js' %}"></script>
+    <script>
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        });
+    </script>
 </body>
 </html>

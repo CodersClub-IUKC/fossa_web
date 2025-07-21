@@ -2,12 +2,16 @@ from django.shortcuts import render, redirect
 from .models import ContactMessage
 from django.contrib import messages
 from app.models import Event, Testimonial, Gallery, Cabinet, Course
-
 def home(request):
     events = Event.objects.all()
-    testimonials = Testimonial.objects.all()[:3] 
-    return render(request, 'index.html', {'events': events, 'testimonials': testimonials})
-
+    testimonials = Testimonial.objects.all()[:3]
+    socials = {
+        'facebook': 'https://facebook.com/fossa',
+        'twitter': 'https://twitter.com/fossa',
+        'linkedin': 'https://linkedin.com/company/fossa',
+         'instagram': 'https://instagram.com/fossa'
+    }
+    return render(request, 'index.html', {'events': events, 'testimonials': testimonials, 'socials': socials})
 def events(request):
     events = Event.objects.all()
     return render(request, 'events.html', {'events': events})
